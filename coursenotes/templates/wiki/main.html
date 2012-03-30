@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load wiki_templates %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Wiki" %}{% endblock %}
+
+{% block body %}
+	<a class="btn" style="float:right;" href="{% url wiki_new_entry %}">new entry</a>
+    <h1>{% trans "CourseNotes Wiki" %}</h1>
+	<br />
+	{% for entry,form in entries %}
+		{% entry entry form %}
+	{% endfor %}
+{% endblock %}

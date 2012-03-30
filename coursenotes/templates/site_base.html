@@ -1,0 +1,43 @@
+{% extends "theme_base.html" %}
+
+{% load metron_tags %}
+{% load dajaxice_templatetags %}
+{% load i18n %}
+{% block extra_head_base %}
+	<link href="/site_media/static/prettify/prettify.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="/site_media/static/prettify/prettify.js"></script>
+	<script type="text/javascript" src="/site_media/static/js/jquery-ui-1.8.18.custom.min.js"></script>
+	<link rel="stylesheet" href="/site_media/static/css/smoothness/jquery-ui-1.8.18.custom.css">
+	<link rel="stylesheet" href="/site_media/static/css/wiki.css">
+
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+		});
+		$(document).ready(function(){
+			$("code").addClass("prettyprint");
+			prettyPrint();
+		});
+	  </script>
+	  <script type="text/javascript" src="/site_media/static/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	  {% dajaxice_js_import %}
+{% endblock %}
+
+{% block nav %}
+    <ul>{% spaceless %}
+		{% if user.is_authenticated %}
+            <!--li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li-->
+            <!--li id="tab_notices"><a href="{% url notification_notices %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li-->
+		{% endif %}
+			<!--li id="tab_wiki"><a href="{% url wiki_main %}">{% trans "Wiki" %}</a></li-->
+    {% endspaceless %}</ul>
+{% endblock %}
+
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}
+
+{% block extra_body_base %}
+    {% analytics %}
+    {% block extra_body %}{% endblock %}
+{% endblock %}

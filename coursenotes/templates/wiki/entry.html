@@ -1,0 +1,71 @@
+{% load markup %}
+{% load wiki_templates %}
+
+<div class="hero-unit entry">
+	{% if form %}
+		<form method="post" action="">
+			{% csrf_token %}
+			{{ form.media }}
+			{{form}}
+			<input class="btn" type="submit"></input>
+		</form>
+	{% else %}
+		<div id="slider{{entry.id}}" class="slider"></div>
+		{% for version in versions %}
+			<div id="version{{version.pk}}" style="display:none;">
+				{{version.object_version.object.body|markdown}}
+			</div>
+		{% endfor %}
+	{% endif %}
+
+	<a class="btn" id="revert{{entry.pk}}" style="float:right;margin-left:5px;" href="{% url wiki_revert_entry %}">revert</a>
+	<a class="btn" style="float:right;margin-left:5px;" href="{% url wiki_delete_entry entry.pk %}">delete</a>
+	<a class="btn" style="float:right;" href="{% url wiki_edit_entry entry.pk %}">edit</a>
+
+	{% if entry.tags|length > 0 %}
+		Tags:
+		{% for tag in entry.tags %}
+			{% tag tag %}
+		{% endfor %}
+	{% endif %}
+
+	<p>Last Edit: {{entry.last_edit_date}}</p>
+	<div id="entry{{entry.pk}}" class="entry_content">
+		{{entry.body|markdown}}
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		//list of versions for the entry
+		var versions{{entry.pk}} = [
+		{% for version in versions %}
+			{% if forloop.last %}
+				{{version.pk}}
+			{% else %}
+				{{version.pk}},
+			{% endif %}
+		{% endfor %}
+		];
+		var current_version{{entry.pk}} = {{versions|length}}-1;
+
+		//Slider for version control
+		$( "#slider{{entry.id}}" ).slider({
+			min:0,
+			value:{{versions|length}}-1,
+			max:{{versions|length}}-1,
+			step:1,
+			slide: function( event, ui ) {
+				$("#entry{{entry.pk}}").html($("#version" + versions{{entry.pk}}[ui.value]).html()); //set the viewing html to the correct version
+				current_version{{entry.pk}} = versions{{entry.pk}}[ui.value];
+			}
+		});
+
+		//dynamic link to revert view
+		$("#revert{{entry.pk}}").click(function(){
+				location.href = "{% url wiki_revert_entry %}?version_id=" + current_version{{entry.pk}} + "&entry_id=" + {{entry.pk}}; 
+				return false;
+		});
+
+	});
+</script>

@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load wiki_templates %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Wiki" %}{% endblock %}
+
+{% block body %}
+<h1>{% trans "Filtered for " %}{% tag tag %}</h1>
+	<br />
+	{% for entry in entry_list %}
+		{% entry entry  %}
+	{% endfor %}
+{% endblock %}

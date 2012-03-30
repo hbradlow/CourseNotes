@@ -1,0 +1,33 @@
+/*Entry*/
+.entry{
+	width:100%;
+	padding:10px;
+}
+.entry blockquote{
+	border:0px;
+}
+.entry code{
+	background:none;
+}
+.entry textarea{
+	width:98%;
+	margin-bottom:5px;
+}
+.entry .entry_content{
+	border-top:1px solid gray;
+}
+.entry img,object,iframe{
+	height:250px;
+	width:250px;
+	position:relative;
+}
+.entry .slider{
+	margin:5px;
+}
+.tag{
+	height:10px;
+	font-weight:normal;
+	line-height:10px;
+	padding:5px;
+	color:black;
+}
