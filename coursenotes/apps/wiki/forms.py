@@ -8,5 +8,3 @@ class EntryForm(forms.Form):
 	#tags = AutoCompleteSelectMultipleField('tag', required=False, help_text=None,label="")
 	#tags = forms.CharField(required=False,label="",widget=forms.TextInput(attrs={"placeholder":"*TODO* Tag this entry..."}))
 	body = forms.CharField(widget=MarkDownInput(attrs={"cols":"80","width":"900px"}),label="")
-
-

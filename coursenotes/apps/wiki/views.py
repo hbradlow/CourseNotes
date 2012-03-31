@@ -17,20 +17,19 @@ def edit_entry(request,entry_id):
 		View for editing an entry specified by entry_id.
 	"""
 	E = Entry.objects.get(id=entry_id)
-	entries = {e:(e,None) for e in Entry.objects.all()}
 	if request.method == "POST":
 		form = EntryForm(request.POST)
 		if form.is_valid():
 			E.body = form.cleaned_data['body']
-			Tag.objects.update_tags(E,' '.join([Tag.objects.get(id=int(e)).name for e in form.cleaned_data['tags']]))
+			E.title = form.cleaned_data['title']
 			E.save()
-			entries[E] = (E,None)
 			return HttpResponseRedirect(reverse("wiki.views.main"))
+		return render_to_response("wiki/entry_form.html",{"form":form,"entry":E},context_instance = RequestContext(request))
 	else:
 		form = EntryForm() 
 		form.initial['body'] = E.body
-		entries[E] = (E,form)
-		return render_to_response("wiki/main.html",{"form":form,"entries":sorted(entries.values(),key = lambda x: x[0].last_edit_date, reverse=True)},context_instance = RequestContext(request))
+		form.initial['title'] = E.title
+		return render_to_response("wiki/entry_form.html",{"form":form,"entry":E},context_instance = RequestContext(request))
 
 def new_entry(request):
 	"""
@@ -61,3 +60,8 @@ def revert_entry(request):
 					version = reversion.get_for_object(entry).order_by("pk")
 					version[0].revert()
 	return HttpResponseRedirect(reverse("wiki.views.main"))
+
+
+
+def webcasts(request):
+	return render_to_response("wiki/webcasts.html",context_instance = RequestContext(request))

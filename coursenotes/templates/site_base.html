@@ -26,10 +26,22 @@
 {% block nav %}
     <ul>{% spaceless %}
 		{% if user.is_authenticated %}
-            <!--li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li-->
-            <!--li id="tab_notices"><a href="{% url notification_notices %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li-->
 		{% endif %}
-			<!--li id="tab_wiki"><a href="{% url wiki_main %}">{% trans "Wiki" %}</a></li-->
+			<li id="tab_wiki"><a href="{% url wiki_main %}">{% trans "Notes" %}</a></li>
+			<li id="tab_wiki"><a href="{% url wiki_webcasts %}">{% trans "Webcasts" %}</a></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					Subscribed Courses
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">CS 188</a></li>
+					<li><a href="#">CS 170</a></li>
+					<li><a href="#">EE 20N</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Add course</a></li>
+				</ul>
+			</li>
     {% endspaceless %}</ul>
 {% endblock %}
 

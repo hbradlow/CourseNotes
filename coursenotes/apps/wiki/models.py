@@ -11,6 +11,7 @@ class Entry(models.Model):
 	body = models.TextField()
 	pub_date = models.DateTimeField(auto_now_add=True)
 	last_edit_date = models.DateTimeField(auto_now=True)
+	title = models.CharField(max_length=500,default="")
 	class Meta:
 		ordering = ["-last_edit_date"]
 

@@ -30,6 +30,7 @@
 	{% endif %}
 
 	<p>Last Edit: {{entry.last_edit_date}}</p>
+	<h2>{{entry.title}}</h2>
 	<div id="entry{{entry.pk}}" class="entry_content">
 		{{entry.body|markdown}}
 	</div>

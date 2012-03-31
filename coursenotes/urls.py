@@ -19,10 +19,9 @@ handler500 = "pinax.views.server_error"
 
 
 urlpatterns = patterns("",
-    #url(r"^$", direct_to_template, {
-    #    "template": "homepage.html",
-    #}, name="home"),
-	url(r"^$",'wiki.views.main',name="home"),
+    url(r"^$", direct_to_template, {
+        "template": "homepage.html",
+    }, name="home"),
 	url(r'^admin_tools/', include('admin_tools.urls')),
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
