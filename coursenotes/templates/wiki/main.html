@@ -10,7 +10,7 @@
 	<a class="btn" style="float:right;" href="{% url wiki_new_entry %}">new entry</a>
     <h1>{% trans "CourseNotes" %}</h1>
 	<br />
-	{% for entry,form in entries %}
-		{% entry entry form %}
+	{% for entry,entry_form,webcast_form in entries %}
+		{% entry entry entry_form %}
 	{% endfor %}
 {% endblock %}

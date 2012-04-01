@@ -5,6 +5,11 @@
 }
 .entry blockquote{
 	border:0px;
+	margin-left:20px;
+	background-color:#DDDDDD;
+	-webkit-border-radius:6px;
+	-moz-border-radius:6px;
+	border-radius:6px;
 }
 .entry code{
 	background:none;
@@ -16,10 +21,18 @@
 .entry .entry_content{
 	border-top:1px solid gray;
 }
-.entry img,object,iframe{
+.entry img{
 	height:250px;
 	width:250px;
 	position:relative;
+}
+.entry object,iframe{
+	margin:3px;
+	padding:10px;
+	background-color:#DDDDDD;
+	-webkit-border-radius:6px;
+	-moz-border-radius:6px;
+	border-radius:6px;
 }
 .entry .slider{
 	margin:5px;
@@ -30,4 +43,7 @@
 	line-height:10px;
 	padding:5px;
 	color:black;
+}
+.btn{
+	color:#222 !important;
 }

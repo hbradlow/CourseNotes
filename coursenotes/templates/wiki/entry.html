@@ -1,39 +1,73 @@
 {% load markup %}
 {% load wiki_templates %}
+{% load oembed_tags %}
 
 <div class="hero-unit entry">
-	{% if form %}
-		<form method="post" action="">
-			{% csrf_token %}
-			{{ form.media }}
-			{{form}}
-			<input class="btn" type="submit"></input>
-		</form>
-	{% else %}
-		<div id="slider{{entry.id}}" class="slider"></div>
-		{% for version in versions %}
-			<div id="version{{version.pk}}" style="display:none;">
-				{{version.object_version.object.body|markdown}}
-			</div>
-		{% endfor %}
-	{% endif %}
+	<ul>
+		<li><a href="#tabs-1-{{entry.pk}}">Note</a></li>
+		<li><a href="#tabs-2-{{entry.pk}}">Webcasts</a></li>
+		<li><a href="#tabs-3-{{entry.pk}}">Discussion</a></li>
+	</ul>
+	<div id="tabs-1-{{entry.pk}}">
+		{% if entry_form %}
+		<form method="post" action="{% url wiki_edit_entry entry.pk %}">
+				{% csrf_token %}
+				{{ entry_form.media }}
+				{{entry_form}}
+				<input class="btn" type="submit"></input>
+			</form>
+		{% else %}
+			<div id="slider{{entry.id}}" class="slider"></div>
+			{% for version in versions %}
+				<div id="version{{version.pk}}" style="display:none;">
+					{{version.object_version.object.body|markdown}}
+				</div>
+			{% endfor %}
+		{% endif %}
 
-	<a class="btn" id="revert{{entry.pk}}" style="float:right;margin-left:5px;" href="{% url wiki_revert_entry %}">revert</a>
-	<a class="btn" style="float:right;margin-left:5px;" href="{% url wiki_delete_entry entry.pk %}">delete</a>
-	<a class="btn" style="float:right;" href="{% url wiki_edit_entry entry.pk %}">edit</a>
+		<a class="btn" id="revert{{entry.pk}}" style="float:right;margin-left:5px;" href="{% url wiki_revert_entry %}">revert</a>
+		<a class="btn" style="float:right;margin-left:5px;" href="{% url wiki_delete_entry entry.pk %}">delete</a>
+		<a class="btn" style="float:right;" href="{% url wiki_edit_entry entry.pk %}">edit</a>
 
-	{% if entry.tags|length > 0 %}
-		Tags:
-		{% for tag in entry.tags %}
-			{% tag tag %}
-		{% endfor %}
-	{% endif %}
+		{% if entry.tags|length > 0 %}
+			Tags:
+			{% for tag in entry.tags %}
+				{% tag tag %}
+			{% endfor %}
+		{% endif %}
 
-	<p>Last Edit: {{entry.last_edit_date}}</p>
-	<h2>{{entry.title}}</h2>
-	<div id="entry{{entry.pk}}" class="entry_content">
-		{{entry.body|markdown}}
+		<p>Last Edit: {{entry.last_edit_date}}</p>
+		<h2>{{entry.title}}</h2>
+		<div id="entry{{entry.pk}}" class="entry_content">
+			{% oembed %}
+				{{entry.body|markdown}}
+			{% endoembed %}
+		</div>
 	</div>
+	<div id="tabs-2-{{entry.pk}}">
+		{% if webcast_form %}
+			<form method="post" action="{% url wiki_edit_entry entry.pk %}">
+				{% csrf_token %}
+				{{webcast_form}}
+				<input class="btn" type="submit" value="Add webcast"></input>
+			</form>
+		{% endif %}
+		{% for webcast in entry.webcasts.all %}
+			<span class="webcast">
+				{% oembed %}
+					{{webcast.link}}
+				{% endoembed %}
+			</span>
+		{% endfor %}
+	</div>
+	<div id="tabs-3-{{entry.pk}}">
+	</div>
+	{% if tag_form %}
+		<form action="{% url wiki_edit_entry entry.pk %}" method="POST">
+			{% csrf_token %}
+			{{tag_form}}
+		</form>
+	{% endif %}
 </div>
 
 <script type="text/javascript">
@@ -67,6 +101,9 @@
 				location.href = "{% url wiki_revert_entry %}?version_id=" + current_version{{entry.pk}} + "&entry_id=" + {{entry.pk}}; 
 				return false;
 		});
+
+		//jquery ui tabs for the different sections of the entry (note/webcasts/discussion)
+		$(".entry").tabs();
 
 	});
 </script>

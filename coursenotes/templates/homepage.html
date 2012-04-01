@@ -2,10 +2,11 @@
 
 {% load i18n %}
 {% load ifsetting_tag %}
+{% load wiki_templates %}
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 
 {% block body %}
 	<h1>{% trans "Welcome to CourseNotes" %}</h1>
-	<p>This is a site where you can read and share lecture notes with other students at your university and around the world.</p>
+	{% entry %}
 {% endblock %}

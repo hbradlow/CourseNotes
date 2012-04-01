@@ -182,6 +182,7 @@ INSTALLED_APPS = [
 	"wmd",
 	"ajax_select",
 	"dajaxice",
+	"oembed",
     
     # Pinax
     "pinax.apps.account",

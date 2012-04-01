@@ -9,27 +9,51 @@ def main(request):
 	"""
 		Displays all entries.
 	"""
-	entries = [(e,None) for e in Entry.objects.all()]
+	entries = [(e,None,None) for e in Entry.objects.all()]
 	return render_to_response("wiki/main.html",{"entries":entries},context_instance = RequestContext(request))
 
+def view_entry(request,entry_id):
+	try:
+		e = Entry.objects.get(id=entry_id)
+		return render_to_response("wiki/main.html",{"entries":[(e,None,None)]},context_instance = RequestContext(request))
+	except:
+		return HttpResponseRedirect(reverse("wiki.views.main"))
 def edit_entry(request,entry_id):
 	"""
 		View for editing an entry specified by entry_id.
 	"""
 	E = Entry.objects.get(id=entry_id)
 	if request.method == "POST":
-		form = EntryForm(request.POST)
-		if form.is_valid():
-			E.body = form.cleaned_data['body']
-			E.title = form.cleaned_data['title']
+		entry_form = EntryForm(request.POST)
+		done = False
+		if entry_form.is_valid():
+			E.body = entry_form.cleaned_data['body']
+			E.title = entry_form.cleaned_data['title']
+			E.tags = ','.join([str(Tag.objects.get(pk=int(c)).name) for c in entry_form.cleaned_data['tags']])
 			E.save()
+			done = True
+		webcast_form = WebcastForm(request.POST)
+		if webcast_form.is_valid():
+			w = Webcast()
+			w.link = webcast_form.cleaned_data['link']
+			w.save()
+			E.webcasts.add(w)
+			E.save()
+			done = True
+		tag_form = TagForm(request.POST)
+		if tag_form.is_valid():
+			E.tags = ','.join([str(Tag.objects.get(pk=int(c)).name) for c in tag_form.cleaned_data['tags']])
+			E.save()
+			done = True
+		if done:
 			return HttpResponseRedirect(reverse("wiki.views.main"))
-		return render_to_response("wiki/entry_form.html",{"form":form,"entry":E},context_instance = RequestContext(request))
+		return render_to_response("wiki/entry_form.html",{"entry_form":entry_form,"webcast_form":webcast_form,"entry":E},context_instance = RequestContext(request))
 	else:
-		form = EntryForm() 
-		form.initial['body'] = E.body
-		form.initial['title'] = E.title
-		return render_to_response("wiki/entry_form.html",{"form":form,"entry":E},context_instance = RequestContext(request))
+		entry_form = EntryForm() 
+		entry_form.initial['body'] = E.body
+		entry_form.initial['title'] = E.title
+
+		return render_to_response("wiki/entry_form.html",{"entry_form":entry_form,"entry":E},context_instance = RequestContext(request))
 
 def new_entry(request):
 	"""
