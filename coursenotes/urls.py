@@ -36,6 +36,7 @@ urlpatterns = patterns("",
 	url(r'^tinymce/', include('tinymce.urls')),
 	url(r'^markitup/', include('markitup.urls')),
 	url(r'^admin/lookups/', include(ajax_select_urls)),
+	url(r'^hashtags/', include('hashtags.urls')),
 	(r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
 )
 

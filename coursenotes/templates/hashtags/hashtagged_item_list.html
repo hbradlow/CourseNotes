@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+
+{% load hashtags_tags %}
+{% load wiki_templates %}
+
+{% block body %}
+
+	{% for item in hashtagged_item_list %}
+		{% entry item.content_object %}
+	{% endfor %}
+
+{% endblock %}

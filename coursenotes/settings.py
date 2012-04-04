@@ -183,6 +183,7 @@ INSTALLED_APPS = [
 	"ajax_select",
 	"dajaxice",
 	"oembed",
+	"hashtags",
     
     # Pinax
     "pinax.apps.account",

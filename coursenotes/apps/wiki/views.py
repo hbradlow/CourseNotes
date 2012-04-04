@@ -29,7 +29,6 @@ def edit_entry(request,entry_id):
 		if entry_form.is_valid():
 			E.body = entry_form.cleaned_data['body']
 			E.title = entry_form.cleaned_data['title']
-			E.tags = ','.join([str(Tag.objects.get(pk=int(c)).name) for c in entry_form.cleaned_data['tags']])
 			E.save()
 			done = True
 		webcast_form = WebcastForm(request.POST)
@@ -38,11 +37,6 @@ def edit_entry(request,entry_id):
 			w.link = webcast_form.cleaned_data['link']
 			w.save()
 			E.webcasts.add(w)
-			E.save()
-			done = True
-		tag_form = TagForm(request.POST)
-		if tag_form.is_valid():
-			E.tags = ','.join([str(Tag.objects.get(pk=int(c)).name) for c in tag_form.cleaned_data['tags']])
 			E.save()
 			done = True
 		if done:

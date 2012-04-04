@@ -1,6 +1,7 @@
 {% load markup %}
 {% load wiki_templates %}
 {% load oembed_tags %}
+{% load hashtags_tags %}
 
 <div class="hero-unit entry">
 	<ul>
@@ -40,7 +41,7 @@
 		<h2>{{entry.title}}</h2>
 		<div id="entry{{entry.pk}}" class="entry_content">
 			{% oembed %}
-				{{entry.body|markdown}}
+				{{entry.body|markdown|urlize_and_track_hashtags:entry}}
 			{% endoembed %}
 		</div>
 	</div>
@@ -62,12 +63,6 @@
 	</div>
 	<div id="tabs-3-{{entry.pk}}">
 	</div>
-	{% if tag_form %}
-		<form action="{% url wiki_edit_entry entry.pk %}" method="POST">
-			{% csrf_token %}
-			{{tag_form}}
-		</form>
-	{% endif %}
 </div>
 
 <script type="text/javascript">
