@@ -11,7 +11,7 @@ django-dajaxice==0.2
 django-debug-toolbar==0.9.4
 django-email-confirmation==0.2
 -e git://github.com/semente/django-hashtags.git@f0ce8d233e8498c5b6d9c2a0f6a62b4c60cb2fdf#egg=django_hashtags-dev
-django-mailer==0.2a1
+django-mailer==0.1.0
 django-markdown==0.1.0
 django-markitup==1.0.0
 django-notification==0.2
