@@ -16,7 +16,7 @@ django-markdown==0.1.0
 django-markitup==1.0.0
 django-notification==0.2
 django-oembed==0.1.3
-django-openid==0.3a1
+django-openid
 django-pagination==1.0.7
 django-reversion==1.6.0
 django-staticfiles==1.1.2
