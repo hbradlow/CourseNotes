@@ -27,6 +27,7 @@ def edit_entry(request,entry_id):
 		entry_form = EntryForm(request.POST)
 		done = False
 		if entry_form.is_valid():
+			print entry_form.cleaned_data
 			E.body = entry_form.cleaned_data['body']
 			E.title = entry_form.cleaned_data['title']
 			E.save()
@@ -38,8 +39,9 @@ def edit_entry(request,entry_id):
 			w.save()
 			E.webcasts.add(w)
 			E.save()
-			done = True
+			done = False 
 		if done:
+			print "DONE"
 			return HttpResponseRedirect(reverse("wiki.views.main"))
 		return render_to_response("wiki/entry_form.html",{"entry_form":entry_form,"webcast_form":webcast_form,"entry":E},context_instance = RequestContext(request))
 	else:

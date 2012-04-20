@@ -44,7 +44,7 @@
 		<h2>{{entry.title}}</h2>
 		<div id="entry{{entry.pk}}" class="entry_content">
 			{% comment %}{% oembed %}{% endcomment %}
-				{{entry.body|markdown|urlize_and_track_hashtags:entry}}
+				{{entry.body|markdown:"safe,mathjax,nl2br,tables"|urlize_and_track_hashtags:entry}}
 			{% comment %}{% endoembed %}{% endcomment %}
 		</div>
 	</div>
