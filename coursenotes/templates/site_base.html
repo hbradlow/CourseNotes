@@ -4,10 +4,11 @@
 {% load dajaxice_templatetags %}
 {% load i18n %}
 {% block extra_head_base %}
+	<script type="text/javascript" src="/site_media/static/js/bootstrap-tooltip.js"></script>
 	<link href="/site_media/static/prettify/prettify.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" src="/site_media/static/prettify/prettify.js"></script>
-	<script type="text/javascript" src="/site_media/static/js/jquery-ui-1.8.18.custom.min.js"></script>
-	<link rel="stylesheet" href="/site_media/static/css/smoothness/jquery-ui-1.8.18.custom.css">
+	<!--script type="text/javascript" src="/site_media/static/js/jquery-ui-1.8.18.custom.min.js"></script-->
+	<!--link rel="stylesheet" href="/site_media/static/css/smoothness/jquery-ui-1.8.18.custom.css"-->
 	<link rel="stylesheet" href="/site_media/static/css/wiki.css">
 
 	<script type="text/x-mathjax-config">
@@ -28,6 +29,7 @@
 		{% if user.is_authenticated %}
 		{% endif %}
 			<li id="tab_wiki"><a href="{% url wiki_main %}">{% trans "Notes" %}</a></li>
+			{% comment %}<li id="tab_create_note"><a href="{% url wiki_create_note %}">{% trans "Create Note" %}</a></li>{% endcomment %}
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					Subscribed Courses

@@ -1,5 +1,8 @@
-<a href="{% url entry_tag_detail tag %}">
+<a id="tag{{tag.pk}}" href="{% url entry_tag_detail tag %}" rel="tooltip" title="Filter entries by {{tag}}">
 	<span class="btn tag">
 		{{tag}}
 	</span>
 </a>
+<script type="text/javascript">
+	$('#tag{{tag.pk}}').tooltip();
+</script>

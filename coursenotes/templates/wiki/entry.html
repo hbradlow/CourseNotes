@@ -4,12 +4,13 @@
 {% load hashtags_tags %}
 
 <div class="hero-unit entry">
-	<ul>
-		<li><a href="#tabs-1-{{entry.pk}}">Note</a></li>
+	<ul class="tabs"  data-tabs="tabs">
+		<li class="active"><a href="#tabs-1-{{entry.pk}}">Note</a></li>
 		<li><a href="#tabs-2-{{entry.pk}}">Webcasts</a></li>
 		<li><a href="#tabs-3-{{entry.pk}}">Discussion</a></li>
 	</ul>
-	<div id="tabs-1-{{entry.pk}}">
+	<div class="tab-content">
+	<div class="tab-pane active" id="tabs-1-{{entry.pk}}">
 		{% if entry_form %}
 		<form method="post" action="{% url wiki_edit_entry entry.pk %}">
 				{% csrf_token %}
@@ -19,14 +20,16 @@
 			</form>
 		{% else %}
 			<div id="slider{{entry.id}}" class="slider"></div>
+			{% comment %}
 			{% for version in versions %}
 				<div id="version{{version.pk}}" style="display:none;">
-					{{version.object_version.object.body|markdown}}
+					{{version.object_version.object.body|markdown:"safe"}}
 				</div>
 			{% endfor %}
+			{% endcomment %}
 		{% endif %}
 
-		<a class="btn" id="revert{{entry.pk}}" style="float:right;margin-left:5px;" href="{% url wiki_revert_entry %}">revert</a>
+		<a class="btn" id="revert{{entry.pk}}" style="float:right;margin-left:5px;" href="{% url wiki_revert_entry %}" rel="popover" data-original-title="Version Control" data-content="You can revert this entry to any pervious version">revert</a>
 		<a class="btn" style="float:right;margin-left:5px;" href="{% url wiki_delete_entry entry.pk %}">delete</a>
 		<a class="btn" style="float:right;" href="{% url wiki_edit_entry entry.pk %}">edit</a>
 
@@ -40,12 +43,12 @@
 		<p>Last Edit: {{entry.last_edit_date}}</p>
 		<h2>{{entry.title}}</h2>
 		<div id="entry{{entry.pk}}" class="entry_content">
-			{% oembed %}
+			{% comment %}{% oembed %}{% endcomment %}
 				{{entry.body|markdown|urlize_and_track_hashtags:entry}}
-			{% endoembed %}
+			{% comment %}{% endoembed %}{% endcomment %}
 		</div>
 	</div>
-	<div id="tabs-2-{{entry.pk}}">
+	<div class="tab-pane" id="tabs-2-{{entry.pk}}">
 		{% if webcast_form %}
 			<form method="post" action="{% url wiki_edit_entry entry.pk %}">
 				{% csrf_token %}
@@ -61,8 +64,9 @@
 			</span>
 		{% endfor %}
 	</div>
-	<div id="tabs-3-{{entry.pk}}">
+	<div class="tab-pane" id="tabs-3-{{entry.pk}}">
 	</div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -80,6 +84,7 @@
 		var current_version{{entry.pk}} = {{versions|length}}-1;
 
 		//Slider for version control
+		/*
 		$( "#slider{{entry.id}}" ).slider({
 			min:0,
 			value:{{versions|length}}-1,
@@ -89,16 +94,13 @@
 				$("#entry{{entry.pk}}").html($("#version" + versions{{entry.pk}}[ui.value]).html()); //set the viewing html to the correct version
 				current_version{{entry.pk}} = versions{{entry.pk}}[ui.value];
 			}
-		});
+		});*/
 
 		//dynamic link to revert view
 		$("#revert{{entry.pk}}").click(function(){
 				location.href = "{% url wiki_revert_entry %}?version_id=" + current_version{{entry.pk}} + "&entry_id=" + {{entry.pk}}; 
 				return false;
 		});
-
-		//jquery ui tabs for the different sections of the entry (note/webcasts/discussion)
-		$(".entry").tabs();
-
+		$("#revert{{entry.pk}}").popover({ placement: "left" });
 	});
 </script>
