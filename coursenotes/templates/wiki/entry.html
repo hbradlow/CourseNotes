@@ -23,7 +23,7 @@
 			{% comment %}
 			{% for version in versions %}
 				<div id="version{{version.pk}}" style="display:none;">
-					{{version.object_version.object.body|markdown:"safe"}}
+					{{version.object_version.object.body|markdown:"mathjax"}}
 				</div>
 			{% endfor %}
 			{% endcomment %}
