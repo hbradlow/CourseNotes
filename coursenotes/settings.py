@@ -102,6 +102,7 @@ TEMPLATE_LOADERS = [
 ]
 
 MIDDLEWARE_CLASSES = [
+	"django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -115,6 +116,7 @@ MIDDLEWARE_CLASSES = [
 
 	'django.middleware.transaction.TransactionMiddleware',
 	'reversion.middleware.RevisionMiddleware',
+	'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = "coursenotes.urls"
