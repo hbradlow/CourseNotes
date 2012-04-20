@@ -184,6 +184,7 @@ INSTALLED_APPS = [
 	"dajaxice",
 	"oembed",
 	"hashtags",
+	"mathjax",
     
     # Pinax
     "pinax.apps.account",
