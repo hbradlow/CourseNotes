@@ -1,5 +1,6 @@
 Django==1.3.1
 Markdown==2.1.1
+PIL==1.1.7
 Pinax==0.9a2
 South==0.7.4
 django-admin-tools==0.4.1
@@ -16,7 +17,7 @@ django-markdown==0.1.0
 django-markitup==1.0.0
 django-notification==0.2
 django-oembed==0.1.3
-django-openid==0.3a1
+-e git://github.com/simonw/django-openid.git@5062aa93abc9a8d6f90837db690c26ace1c68672#egg=django_openid-dev
 django-pagination==1.0.7
 django-reversion==1.6.0
 django-staticfiles==1.1.2
@@ -32,6 +33,6 @@ metron==0.1
 pinax-theme-bootstrap==0.1.2
 psycopg2==2.4.5
 python-openid==2.2.5
-pytz==2011n
+pytz==2012c
 simplejson==2.5.0
 wsgiref==0.1.2
