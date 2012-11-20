@@ -1,0 +1,38 @@
+Django==1.3.1
+Markdown==2.1.1
+PIL==1.1.7
+Pinax==0.9a2
+South==0.7.4
+django-admin-tools==0.4.1
+django-ajax-selects==1.2.4
+django-announcements==0.1.2
+django-appconf==0.5
+django-compressor==1.0.1
+django-dajaxice==0.2
+django-debug-toolbar==0.9.4
+django-email-confirmation==0.2
+-e git://github.com/semente/django-hashtags.git@f0ce8d233e8498c5b6d9c2a0f6a62b4c60cb2fdf#egg=django_hashtags-dev
+django-mailer==0.1.0
+django-markdown==0.1.0
+django-markitup==1.0.0
+django-notification==0.2
+django-oembed==0.1.3
+-e git://github.com/simonw/django-openid.git@5062aa93abc9a8d6f90837db690c26ace1c68672#egg=django_openid-dev
+django-pagination==1.0.7
+django-reversion==1.6.0
+django-staticfiles==1.1.2
+django-tagging==0.3.1
+django-tagging-autocomplete==0.3.1
+django-timezones==0.2
+django-tinymce==1.5.1b2
+-e git://github.com/marcuswhybrow/django-wmd-editor.git@ae5b364f7982310971d5ecbaf741d8e5ec59ee2b#egg=django_wmd_editor-dev
+docutils==0.8.1
+feedparser==5.1.1
+-e git://github.com/eldarion/idios.git@d48698c21611b9de0830578bab4f57ed69e61126#egg=idios-dev
+metron==0.1
+pinax-theme-bootstrap==0.1.2
+psycopg2==2.4.5
+python-openid==2.2.5
+pytz==2012c
+simplejson==2.5.0
+wsgiref==0.1.2

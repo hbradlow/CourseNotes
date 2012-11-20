@@ -20,13 +20,11 @@
 			</form>
 		{% else %}
 			<div id="slider{{entry.id}}" class="slider"></div>
-			{% comment %}
 			{% for version in versions %}
 				<div id="version{{version.pk}}" style="display:none;">
 					{{version.object_version.object.body|markdown:"safe,mathjax"}}
 				</div>
 			{% endfor %}
-			{% endcomment %}
 		{% endif %}
 
 		<a class="btn" id="revert{{entry.pk}}" style="float:right;margin-left:5px;" href="{% url wiki_revert_entry %}" rel="popover" data-original-title="Version Control" data-content="You can revert this entry to any pervious version">revert</a>
@@ -84,7 +82,7 @@
 		var current_version{{entry.pk}} = {{versions|length}}-1;
 
 		//Slider for version control
-		/*
+		
 		$( "#slider{{entry.id}}" ).slider({
 			min:0,
 			value:{{versions|length}}-1,
@@ -94,7 +92,7 @@
 				$("#entry{{entry.pk}}").html($("#version" + versions{{entry.pk}}[ui.value]).html()); //set the viewing html to the correct version
 				current_version{{entry.pk}} = versions{{entry.pk}}[ui.value];
 			}
-		});*/
+		});
 
 		//dynamic link to revert view
 		$("#revert{{entry.pk}}").click(function(){
